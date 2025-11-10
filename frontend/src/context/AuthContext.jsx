@@ -42,21 +42,24 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (name, email, password) => {
-    try {
-      const response = await axios.post('/api/auth/register', { name, email, password });
-      const { access_token, user: userData } = response.data;
-      
-      localStorage.setItem('token', access_token);
-      localStorage.setItem('user', JSON.stringify(userData));
-      axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-      
-      setUser(userData);
-      return { success: true };
-    } catch (error) {
-      return { success: false, error: error.response?.data?.message || 'Registration failed' };
-    }
-  };
+ const register = async (name, email, password) => {
+  try {
+    const response = await axios.post('/api/register', { name, email, password });
+
+    const { token, user: userData } = response.data;
+
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(userData));
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+    setUser(userData);
+    return { success: true };
+
+  } catch (error) {
+    return { success: false, error: error.response?.data?.message || 'Registration failed' };
+  }
+};
+
 
   const logout = () => {
     localStorage.removeItem('token');

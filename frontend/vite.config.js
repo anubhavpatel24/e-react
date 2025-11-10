@@ -7,7 +7,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://e-react-ten.vercel.app:5000',
+        target: 'http://e-react-ten.vercel.app',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
