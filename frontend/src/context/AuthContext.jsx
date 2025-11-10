@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password) => {
     try {
-      const response = await axios.post('/api/auth/register', { name, email, password });
+      const response = await axios.post('https://e-react-dc29.vercel.app/api/auth/register', { name, email, password });
       const { access_token, user: userData } = response.data;
       
       localStorage.setItem('token', access_token);
